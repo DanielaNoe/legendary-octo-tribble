@@ -1,0 +1,49 @@
+-- Erstellen eines Customers
+DECLARE @CustomerId UNIQUEIDENTIFIER = NEWID();
+INSERT INTO Customers (Id, CustomerName, Deleted, DeletedAt) 
+VALUES (@CustomerId, 'Musterfirma GmbH', 0, null);
+
+-- Erstellen von zwei Addressen (Billing & Delivery)
+DECLARE @BillingAddressId UNIQUEIDENTIFIER = NEWID();
+DECLARE @DeliveryAddressId UNIQUEIDENTIFIER = NEWID();
+
+INSERT INTO Addresses (Id, Name, Street, HouseNumber, PostalCode, Country, CustomerId, Deleted, DeletedAt) 
+VALUES 
+(@BillingAddressId, 'Rechnungsadresse', 'Hauptstraße', '10', '12345', 'Deutschland', @CustomerId, 0, null),
+(@DeliveryAddressId, 'Lieferadresse', 'Nebenstraße', '20', '54321', 'Deutschland', @CustomerId, 0, null);
+
+-- Erstellen von drei Artikeln
+DECLARE @ArticleId1 UNIQUEIDENTIFIER = NEWID();
+DECLARE @ArticleId2 UNIQUEIDENTIFIER = NEWID();
+DECLARE @ArticleId3 UNIQUEIDENTIFIER = NEWID();
+
+DECLARE @ArticlePrice1 FLOAT= 1200.00;
+DECLARE @ArticlePrice2 FLOAT= 400.00;
+DECLARE @ArticlePrice3 FLOAT= 50.00;
+
+INSERT INTO Articles (Id, Name, Description, Price, Deleted, DeletedAt) 
+VALUES 
+(@ArticleId1, 'Laptop', 'Business Laptop mit i7 CPU', @ArticlePrice1, 0, null),
+(@ArticleId2, 'Monitor', '27-Zoll 4K Monitor', @ArticlePrice2, 0, null),
+(@ArticleId3, 'Maus', 'Ergonomische Funkmaus', @ArticlePrice3, 0, null);
+
+-- Erstellen einer Order
+DECLARE @OrderId UNIQUEIDENTIFIER = NEWID();
+INSERT INTO Orders (Id, OrderNumber, OrderDate, CustomerId, BillingAddressId, DeliveryAddressId, TotalPrice, Deleted, DeletedAt) 
+VALUES (@OrderId, 'ORD-20250311-001', GETDATE(), @CustomerId, @BillingAddressId, @DeliveryAddressId, 1650.00, 0, null);
+
+-- Erstellen von drei Positionen für die Order
+DECLARE @PositionId1 UNIQUEIDENTIFIER = NEWID();
+DECLARE @PositionId2 UNIQUEIDENTIFIER = NEWID();
+DECLARE @PositionId3 UNIQUEIDENTIFIER = NEWID();
+
+INSERT INTO Positions (Id, OrderId, ArticleId, Amount, Price, TotalPrice, Deleted, DeletedAt) 
+VALUES 
+(@PositionId1, @OrderId, @ArticleId1, 1, @ArticlePrice1, @ArticlePrice1, 0, null),
+(@PositionId2, @OrderId, @ArticleId2, 1, @ArticlePrice2, @ArticlePrice2, 0, null),
+(@PositionId3, @OrderId, @ArticleId3, 1, @ArticlePrice3, @ArticlePrice3, 0, null);
+
+-- Erstellen einer Invoice zur Order
+DECLARE @InvoiceId UNIQUEIDENTIFIER = NEWID();
+INSERT INTO Invoices (Id, InvoiceNumber, InvoiceDate, OrderId, State, TotalPrice, Deleted, DeletedAt) 
+VALUES (@InvoiceId, 'INV-20250311-001', GETDATE(), @OrderId, 0, 1650.00, 0, null);
