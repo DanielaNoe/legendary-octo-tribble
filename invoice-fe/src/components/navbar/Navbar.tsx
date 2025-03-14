@@ -1,14 +1,18 @@
 import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router";
+import {  useLocation, useNavigate } from "react-router";
 
 const navItems = [
     { path: "/", label: "Home" },
     { path: "/invoices", label: "Invoices" },
     { path: "/orders", label: "Orders" }
   ];
+
+  interface NavbarProps {
+    mockLocation?: { pathname: string };
+  }
   
-function Navbar() {
-  const currentLocation = useLocation();
+function Navbar({ mockLocation }: NavbarProps) {
+  const currentLocation = mockLocation || useLocation();
   const [activePath, setActivePath] = useState(currentLocation.pathname);
 
   const navigate = useNavigate();
@@ -20,7 +24,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="nav flex-column">
+    <nav className="nav flex-column" id="navbar">
         <h4><div className="nav-link text-light">Navigation</div></h4>
         <hr className="mt-0 text-light" />
         

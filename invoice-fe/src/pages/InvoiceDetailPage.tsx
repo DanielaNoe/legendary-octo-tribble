@@ -16,15 +16,14 @@ function InvoicesDetailPage() {
 
   useEffect(() => {
     if (invoiceId) {
-        InvoiceService.getInvoiceById(invoiceId!).then(setInvoiceOriginal);
+        InvoiceService.getInvoiceById(invoiceId!).then((data) => {
+            if (data) {
+                setInvoiceOriginal(data);
+                setInvoice(data);
+            }
+       });
     }
   }, [invoiceId]);
-
-  useEffect(() => {
-    if (invoiceOriginal) {
-        setInvoice(invoiceOriginal);
-      }
-  }, [invoiceOriginal]);
 
   const updateInvoice = () => {
     InvoiceService.updateInvoice(invoice);
@@ -63,7 +62,8 @@ function InvoicesDetailPage() {
                 <div className="row mt-4">
                     <div className="col-5 pt-2 fw-bold">Status: </div>
                     <div className="col-7">
-                        <div className="dropdown w-100">
+                        {(invoiceOriginal.state !== InvoiceState.CANCELLED) ? (
+                            <div className="dropdown w-100">
                             <button
                                 className="btn btn-secondary bg-primary dropdown-toggle dropdown-toggle-split w-100"
                                 type="button"
@@ -83,6 +83,9 @@ function InvoicesDetailPage() {
                                 ))}
                             </ul>
                         </div>
+                        ) : (
+                            <div className="pt-1">{invoiceStateToText(invoiceOriginal.state)}</div>
+                        )}
                     </div>
                 </div>
             </div>

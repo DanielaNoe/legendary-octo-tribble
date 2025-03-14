@@ -20,7 +20,7 @@ function OrderPage() {
   };
 
   return (
-    <div>
+    <div id="orders">
         <div className="w-90 d-flex">
             <div className="mt-1 flex-grow-1">
                 <h2>Orders</h2>

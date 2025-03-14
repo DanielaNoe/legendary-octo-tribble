@@ -33,14 +33,14 @@ function InvoicePage() {
   };
 
   return (
-    <div>
+    <div id="invoices">
         <div className="w-90 d-flex">
             <div className="mt-1 flex-grow-1">
                 <h2>Invoices</h2>
             </div>
 
             <div>
-                <button className="btn btn-success mt-1" type="button" onClick={() => openOrderPage()}>
+                <button id="btn-add" className="btn btn-success mt-1" type="button" onClick={() => openOrderPage()}>
                     <IconPlus />
                 </button>
             </div>

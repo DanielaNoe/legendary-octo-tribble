@@ -76,11 +76,15 @@ namespace InvoiceApi.Repositories
                     .Where(i => i.Id == invoice.Id && !i.Deleted)
                     .FirstOrDefaultAsync() ?? throw new ApplicationException("Fehler beim Bearbeiten der Rechnung: Rechnung nicht gefunden!");
 
+                if (invoiceDB.State == InvoiceState.CANCELLED)
+                {
+                    throw new ApplicationException("Fehler beim Bearbeiten der Rechnung: Rechnung mit Status CANCELLED kann nicht bearbeitet werden!");
+                }
+
                 invoiceDB.State = (Models.InvoiceState)invoice.State;
 
                 _context.Entry(invoiceDB).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
-
             }
             catch (Exception e)
             {
@@ -103,6 +107,8 @@ namespace InvoiceApi.Repositories
                     .Where(i => i.InvoiceNumber == invoiceNumber)
                     .FirstOrDefaultAsync();
 
+                bool newInvoiceIsAddable = true;
+
                 if (invoiceDB != null)
                 {
                     var index = 1;
@@ -120,11 +126,23 @@ namespace InvoiceApi.Repositories
                         {
                             break;
                         }
+                        else
+                        {
+                            if (!lastExistingInvoiceDB.Deleted && lastExistingInvoiceDB.State != InvoiceState.CANCELLED)
+                            {
+                                newInvoiceIsAddable = false;
+                            }
+                        }
                     }
 
                     invoiceNumber += "-";
                     invoiceNumber += index;
                 }                
+
+                if (!newInvoiceIsAddable)
+                {
+                    throw new ApplicationException("Fehler beim Hinzufügen der Rechnung: Es kann nur eine Rechnung (außer Status CANCELLED) pro Bestellung geben!");
+                }
 
                 var newInvoice = new Invoice();
                 newInvoice.Id = Guid.NewGuid();

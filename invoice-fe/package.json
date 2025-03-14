@@ -7,28 +7,40 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:jest": "jest",
+    "test:cypress": "concurrently --kill-others-on-fail \"vite\" \"npx cypress open\""
   },
   "dependencies": {
-    "axios": "^1.8.2",
+    "@cypress/react": "^9.0.0",
     "bootstrap": "^5.3.3",
+    "chromedriver": "^134.0.3",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",
-    "react-router": "^7.3.0",
-    "react-router-dom": "^7.3.0"
+    "react-router": "^7.3.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/axios": "^0.9.36",
+    "@types/jest": "^29.5.14",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "^4.3.4",
+    "axios": "^1.8.3",
+    "concurrently": "^9.1.2",
+    "cypress": "^14.2.0",
     "eslint": "^9.21.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
+    "jest": "^29.7.0",
+    "react-router-dom": "^7.3.0",
+    "ts-jest": "^29.2.6",
     "typescript": "^5.8.2",
     "vite": "^6.2.0"
   }

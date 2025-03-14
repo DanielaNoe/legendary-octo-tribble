@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvoiceApi", "InvoiceApi.csproj", "{23C3B182-F74E-421E-B0EB-4B593998AF0B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "..\UnitTests\UnitTests.csproj", "{40B58EF9-EB95-4AFE-9AA4-FD36E8FA3D9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{23C3B182-F74E-421E-B0EB-4B593998AF0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23C3B182-F74E-421E-B0EB-4B593998AF0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23C3B182-F74E-421E-B0EB-4B593998AF0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40B58EF9-EB95-4AFE-9AA4-FD36E8FA3D9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40B58EF9-EB95-4AFE-9AA4-FD36E8FA3D9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40B58EF9-EB95-4AFE-9AA4-FD36E8FA3D9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40B58EF9-EB95-4AFE-9AA4-FD36E8FA3D9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
